@@ -1,0 +1,50 @@
+@model List<Attraction>
+@{
+    ViewBag.Title = "إدارة المعالم";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-landmark"></i> إدارة المعالم</h2>
+    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i> إضافة معلم</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>الصورة</th>
+            <th>الاسم</th>
+            <th>المحافظة</th>
+            <th>التصنيفات</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var attraction in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(attraction.ImageUrl))
+                    {
+                        <img src="@attraction.ImageUrl" alt="@attraction.Name" style="width: 60px; height: 40px; object-fit: cover;" class="rounded" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">لا صورة</span>
+                    }
+                </td>
+                <td>@attraction.Name</td>
+                <td>@attraction.Governorate?.Name</td>
+                <td>
+                    @foreach (var ac in attraction.AttractionCategories)
+                    {
+                        <span class="badge bg-info">@ac.Category?.Name</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@attraction.Id" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Delete" asp-route-id="@attraction.Id" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

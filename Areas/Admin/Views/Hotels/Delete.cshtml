@@ -1,0 +1,19 @@
+@model Hotel
+@{
+    ViewBag.Title = "حذف الفندق";
+}
+
+<h2 class="text-danger"><i class="fas fa-trash"></i> حذف الفندق</h2>
+<div class="alert alert-warning">هل أنت متأكد من حذف هذا الفندق؟</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4>@Model.Name</h4>
+        <p><strong>المحافظة:</strong> @Model.Governorate?.Name</p>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> تأكيد الحذف</button>
+            <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+        </form>
+    </div>
+</div>

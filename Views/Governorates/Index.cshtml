@@ -1,0 +1,32 @@
+@model List<Governorate>
+@{
+    ViewBag.Title = "المحافظات";
+}
+
+<h2 class="mb-4"><i class="fas fa-map-marked-alt"></i> المحافظات اليمنية</h2>
+
+@await Html.PartialAsync("_SearchForm", ViewData["CurrentSearch"] as string)
+
+<div class="row">
+    @foreach (var gov in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-city"></i> @gov.Name</h5>
+                    <p class="card-text">@gov.Description</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Details" asp-route-id="@gov.Id" class="btn btn-success btn-sm">
+                        عرض التفاصيل
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">لا توجد نتائج</div>
+}

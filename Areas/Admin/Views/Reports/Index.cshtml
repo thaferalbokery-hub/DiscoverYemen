@@ -1,0 +1,95 @@
+@model ReportViewModel
+@{
+    ViewBag.Title = "التقارير";
+}
+
+<h2 class="mb-4"><i class="fas fa-chart-bar"></i> التقارير</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-dark">
+            <div class="card-body text-center">
+                <h5>المستخدمين</h5>
+                <h2>@Model.TotalUsers</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-success">
+            <div class="card-body text-center">
+                <h5>المحافظات</h5>
+                <h2>@Model.TotalGovernorates</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body text-center">
+                <h5>المعالم</h5>
+                <h2>@Model.TotalAttractions</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-info">
+            <div class="card-body text-center">
+                <h5>الفنادق</h5>
+                <h2>@Model.TotalHotels</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body text-center">
+                <h5>المطاعم</h5>
+                <h2>@Model.TotalRestaurants</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-secondary">
+            <div class="card-body text-center">
+                <h5>الفعاليات</h5>
+                <h2>@Model.TotalEvents</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-danger">
+            <div class="card-body text-center">
+                <h5>التقييمات</h5>
+                <h2>@Model.TotalReviews</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-success">
+            <div class="card-body text-center">
+                <h5>الحجوزات</h5>
+                <h2>@Model.TotalBookings</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>المعالم حسب المحافظة</h4>
+<table class="table table-bordered">
+    <thead class="table-success">
+        <tr>
+            <th>المحافظة</th>
+            <th>عدد المعالم</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AttractionsByGovernorate)
+        {
+            <tr>
+                <td>@item.GovernorateName</td>
+                <td>@item.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+@model List<Hotel>
+@{
+    ViewBag.Title = "إدارة الفنادق";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-hotel"></i> إدارة الفنادق</h2>
+    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i> إضافة فندق</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>الاسم</th>
+            <th>المحافظة</th>
+            <th>النجوم</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in Model)
+        {
+            <tr>
+                <td>@hotel.Id</td>
+                <td>@hotel.Name</td>
+                <td>@hotel.Governorate?.Name</td>
+                <td>
+                    @if (hotel.Stars.HasValue)
+                    {
+                        @for (int i = 0; i < hotel.Stars.Value; i++)
+                        {
+                            <i class="fas fa-star text-warning"></i>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@hotel.Id" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Delete" asp-route-id="@hotel.Id" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

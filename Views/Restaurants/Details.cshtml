@@ -1,0 +1,18 @@
+@model Restaurant
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2><i class="fas fa-utensils"></i> @Model.Name</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>المحافظة:</strong> @Model.Governorate?.Name</p>
+        <p><strong>العنوان:</strong> @Model.Address</p>
+        <p><strong>الهاتف:</strong> @Model.Phone</p>
+        <p><strong>نوع المطبخ:</strong> @Model.CuisineType</p>
+        <p><strong>الوصف:</strong> @Model.Description</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">العودة للمطاعم</a>

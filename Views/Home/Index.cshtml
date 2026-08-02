@@ -1,0 +1,49 @@
+@model List<Attraction>
+@{
+    ViewBag.Title = "اكتشف اليمن - الرئيسية";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-success">اكتشف اليمن</h1>
+    <p class="lead">اكتشف جمال اليمن ومعالمه السياحية والتاريخية</p>
+</div>
+
+<div class="row mb-4">
+    @await Html.PartialAsync("_SummaryCard", ("المحافظات", ViewBag.TotalGovernorates.ToString(), "map-marked-alt", "success"))
+    @await Html.PartialAsync("_SummaryCard", ("المعالم", ViewBag.TotalAttractions.ToString(), "landmark", "primary"))
+    @await Html.PartialAsync("_SummaryCard", ("الفنادق", ViewBag.TotalHotels.ToString(), "hotel", "info"))
+    @await Html.PartialAsync("_SummaryCard", ("اكتشف", "اليمن", "globe", "warning"))
+</div>
+
+<h3 class="mb-3">أحدث المعالم السياحية</h3>
+<div class="row">
+    @foreach (var attraction in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                @if (!string.IsNullOrEmpty(attraction.ImageUrl))
+                {
+                    <img src="@attraction.ImageUrl" class="card-img-top" alt="@attraction.Name" style="height: 200px; object-fit: cover;" />
+                }
+                else
+                {
+                    <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@attraction.Name</h5>
+                    <p class="card-text text-muted">
+                        <i class="fas fa-map-marker-alt"></i> @attraction.Governorate?.Name
+                    </p>
+                    <p class="card-text">@(attraction.Description?.Length > 100 ? attraction.Description.Substring(0, 100) + "..." : attraction.Description)</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Attractions" asp-action="Details" asp-route-id="@attraction.Id" class="btn btn-success btn-sm">
+                        عرض التفاصيل
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,36 @@
+/* Discover Yemen - Custom Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card-img-top {
+    object-fit: cover;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.btn-success {
+    background-color: #198754;
+}
+
+.text-success {
+    color: #198754 !important;
+}
+
+.bg-success {
+    background-color: #198754 !important;
+}

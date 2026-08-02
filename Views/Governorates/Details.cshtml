@@ -1,0 +1,65 @@
+@model Governorate
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2><i class="fas fa-city"></i> @Model.Name</h2>
+<p class="lead">@Model.Description</p>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <h4><i class="fas fa-landmark"></i> المعالم السياحية (@Model.Attractions.Count)</h4>
+        <ul class="list-group mb-3">
+            @foreach (var attraction in Model.Attractions)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @attraction.Name
+                    <a asp-controller="Attractions" asp-action="Details" asp-route-id="@attraction.Id" class="btn btn-sm btn-outline-success">عرض</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4><i class="fas fa-hotel"></i> الفنادق (@Model.Hotels.Count)</h4>
+        <ul class="list-group mb-3">
+            @foreach (var hotel in Model.Hotels)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @hotel.Name
+                    <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-sm btn-outline-info">عرض</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4><i class="fas fa-utensils"></i> المطاعم (@Model.Restaurants.Count)</h4>
+        <ul class="list-group mb-3">
+            @foreach (var restaurant in Model.Restaurants)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @restaurant.Name
+                    <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-sm btn-outline-warning">عرض</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4><i class="fas fa-calendar-alt"></i> الفعاليات (@Model.Events.Count)</h4>
+        <ul class="list-group mb-3">
+            @foreach (var evt in Model.Events)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @evt.Name
+                    <a asp-controller="Events" asp-action="Details" asp-route-id="@evt.Id" class="btn btn-sm btn-outline-primary">عرض</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">العودة للمحافظات</a>

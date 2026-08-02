@@ -1,0 +1,42 @@
+@model List<Favorite>
+@{
+    ViewBag.Title = "المفضلة";
+}
+
+<h2 class="mb-4"><i class="fas fa-heart text-danger"></i> المفضلة</h2>
+
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var fav in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(fav.Attraction?.ImageUrl))
+                    {
+                        <img src="@fav.Attraction.ImageUrl" class="card-img-top" alt="@fav.Attraction.Name" style="height: 200px; object-fit: cover;" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@fav.Attraction?.Name</h5>
+                        <p class="text-muted"><i class="fas fa-map-marker-alt"></i> @fav.Attraction?.Governorate?.Name</p>
+                        <small class="text-muted">أضيف في: @fav.DateAdded.ToString("yyyy/MM/dd")</small>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a asp-controller="Attractions" asp-action="Details" asp-route-id="@fav.AttractionId" class="btn btn-success btn-sm">عرض</a>
+                        <form asp-action="Remove" method="post">
+                            <input type="hidden" name="attractionId" value="@fav.AttractionId" />
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> إزالة</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        <p>لا توجد عناصر في المفضلة</p>
+        <a asp-controller="Attractions" asp-action="Index" class="btn btn-success">تصفح المعالم</a>
+    </div>
+}

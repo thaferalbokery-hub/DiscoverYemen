@@ -1,0 +1,117 @@
+@model Attraction
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>@Model.Name</h2>
+        <p class="text-muted">
+            <i class="fas fa-map-marker-alt"></i> @Model.Governorate?.Name
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                <span> - @Model.Location</span>
+            }
+        </p>
+
+        @if (Model.AttractionCategories.Any())
+        {
+            <p>
+                @foreach (var ac in Model.AttractionCategories)
+                {
+                    <span class="badge bg-info">@ac.Category?.Name</span>
+                }
+            </p>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" class="img-fluid rounded mb-3" alt="@Model.Name" style="max-height: 400px; width: 100%; object-fit: cover;" />
+        }
+
+        <p>@Model.Description</p>
+    </div>
+    <div class="col-md-4">
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <form asp-controller="Favorites" asp-action="Add" method="post">
+                        <input type="hidden" name="attractionId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-outline-danger w-100 mb-2">
+                            <i class="fas fa-heart"></i> أضف للمفضلة
+                        </button>
+                    </form>
+                    <form asp-controller="Bookings" asp-action="Create" method="post">
+                        <input type="hidden" name="ItemType" value="Attraction" />
+                        <input type="hidden" name="ItemId" value="@Model.Id" />
+                        <input type="hidden" name="ItemName" value="@Model.Name" />
+                        <input type="hidden" name="Quantity" value="1" />
+                        <button type="submit" class="btn btn-outline-success w-100">
+                            <i class="fas fa-bookmark"></i> احجز الآن
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<hr />
+
+<h4>التقييمات والمراجعات</h4>
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <form asp-controller="Reviews" asp-action="Create" method="post">
+                <input type="hidden" name="attractionId" value="@Model.Id" />
+                <div class="mb-3">
+                    <label class="form-label">التقييم</label>
+                    <select name="rating" class="form-select" required>
+                        <option value="">اختر التقييم</option>
+                        <option value="5">★★★★★ ممتاز</option>
+                        <option value="4">★★★★ جيد جداً</option>
+                        <option value="3">★★★ جيد</option>
+                        <option value="2">★★ مقبول</option>
+                        <option value="1">★ ضعيف</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">التعليق</label>
+                    <textarea name="comment" class="form-control" rows="3" required placeholder="اكتب تعليقك هنا..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">إرسال التقييم</button>
+            </form>
+        </div>
+    </div>
+}
+
+@if (Model.Reviews.Any())
+{
+    @foreach (var review in Model.Reviews.OrderByDescending(r => r.DateCreated))
+    {
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <strong>@review.User?.FullName</strong>
+                    <span class="text-warning">
+                        @for (int i = 0; i < review.Rating; i++)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                    </span>
+                </div>
+                <p class="mb-1">@review.Comment</p>
+                <small class="text-muted">@review.DateCreated.ToString("yyyy/MM/dd")</small>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p class="text-muted">لا توجد تقييمات بعد.</p>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-3">العودة للمعالم</a>
