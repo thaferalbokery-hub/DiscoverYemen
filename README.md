@@ -241,9 +241,9 @@ dotnet run
 
 ## التقنيات المستخدمة
 
-- .NET 8
+- .NET 9
 - ASP.NET Core MVC
-- Entity Framework Core 8
+- Entity Framework Core 9
 - ASP.NET Core Identity
 - SQLite
 - Bootstrap 5 RTL

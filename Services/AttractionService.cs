@@ -16,7 +16,6 @@ namespace DiscoverYemen.Services
             _environment = environment;
         }
 
-        // Column-level querying with Select() and ViewModel
         public async Task<List<AttractionListViewModel>> GetAttractionListAsync(int? governorateId, int? categoryId, string? searchTerm)
         {
             var query = _context.Attractions
@@ -25,7 +24,6 @@ namespace DiscoverYemen.Services
                     .ThenInclude(ac => ac.Category)
                 .AsQueryable();
 
-            // Row-level filtering with Where()
             if (governorateId.HasValue)
             {
                 query = query.Where(a => a.GovernorateId == governorateId.Value);
@@ -41,7 +39,6 @@ namespace DiscoverYemen.Services
                 query = query.Where(a => a.Name.Contains(searchTerm) || a.Description.Contains(searchTerm));
             }
 
-            // Column-level projection with Select()
             var attractions = await query
                 .Select(a => new AttractionListViewModel
                 {
