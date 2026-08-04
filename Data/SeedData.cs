@@ -41,6 +41,14 @@ namespace DiscoverYemen.Data
                 }
             }
 
+            // Ensure Admin has a UserProfile
+            var adminUser = await userManager.FindByEmailAsync("admin@discoveryemen.com");
+            if (adminUser != null && !context.UserProfiles.Any(p => p.UserId == adminUser.Id))
+            {
+                context.UserProfiles.Add(new UserProfile { UserId = adminUser.Id });
+                await context.SaveChangesAsync();
+            }
+
             // Seed Default User
             if (await userManager.FindByEmailAsync("user@discoveryemen.com") == null)
             {
@@ -56,6 +64,14 @@ namespace DiscoverYemen.Data
                 {
                     await userManager.AddToRoleAsync(user, "User");
                 }
+            }
+
+            // Ensure Default User has a UserProfile
+            var defaultUser = await userManager.FindByEmailAsync("user@discoveryemen.com");
+            if (defaultUser != null && !context.UserProfiles.Any(p => p.UserId == defaultUser.Id))
+            {
+                context.UserProfiles.Add(new UserProfile { UserId = defaultUser.Id });
+                await context.SaveChangesAsync();
             }
 
             // Seed Governorates
