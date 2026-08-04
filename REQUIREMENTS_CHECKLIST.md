@@ -2,7 +2,7 @@
 
 | # | المتطلب | الحالة | الملف/الدليل |
 |---|---------|--------|--------------|
-| 1 | ASP.NET Core MVC (.NET 9) | PASS | DiscoverYemen.csproj, Program.cs |
+| 1 | ASP.NET Core MVC (.NET 8) | PASS | DiscoverYemen.csproj, Program.cs |
 | 2 | 10+ نماذج قاعدة بيانات | PASS | Models/ — 12 نموذج (ApplicationUser, UserProfile, Governorate, Attraction, Category, AttractionCategory, Hotel, Restaurant, Event, Favorite, Review, Booking, BookingItem) |
 | 3a | علاقة 1:1 | PASS | ApplicationUser → UserProfile — Data/ApplicationDbContext.cs |
 | 3b | علاقات 1:N | PASS | Governorate→Attractions/Hotels/Restaurants/Events, User→Reviews/Bookings/Favorites, Booking→BookingItems |

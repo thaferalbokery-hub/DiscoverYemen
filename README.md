@@ -19,8 +19,8 @@
 
 ## التقنيات المستخدمة
 
-- .NET 9 / ASP.NET Core MVC
-- Entity Framework Core 9
+- .NET 8 / ASP.NET Core MVC
+- Entity Framework Core 8
 - ASP.NET Core Identity
 - SQLite
 - Bootstrap 5 RTL
