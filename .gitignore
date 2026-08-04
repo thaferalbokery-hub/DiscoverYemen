@@ -1,0 +1,37 @@
+## .NET Build Output
+bin/
+obj/
+publish/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## IDE
+.vs/
+.vscode/
+*.swp
+*~
+
+## Database files
+*.db
+*.db-shm
+*.db-wal
+*.mdf
+*.ldf
+
+## OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+## Secrets
+appsettings.Production.json
