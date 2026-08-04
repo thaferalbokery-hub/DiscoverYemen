@@ -14,7 +14,6 @@ namespace DiscoverYemen.Data
 
             context.Database.Migrate();
 
-            // Seed Roles
             if (!await roleManager.RoleExistsAsync("Admin"))
             {
                 await roleManager.CreateAsync(new IdentityRole("Admin"));
@@ -24,7 +23,6 @@ namespace DiscoverYemen.Data
                 await roleManager.CreateAsync(new IdentityRole("User"));
             }
 
-            // Seed Admin User
             if (await userManager.FindByEmailAsync("admin@discoveryemen.com") == null)
             {
                 var admin = new ApplicationUser
@@ -41,7 +39,6 @@ namespace DiscoverYemen.Data
                 }
             }
 
-            // Ensure Admin has a UserProfile
             var adminUser = await userManager.FindByEmailAsync("admin@discoveryemen.com");
             if (adminUser != null && !context.UserProfiles.Any(p => p.UserId == adminUser.Id))
             {
@@ -49,7 +46,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Default User
             if (await userManager.FindByEmailAsync("user@discoveryemen.com") == null)
             {
                 var user = new ApplicationUser
@@ -66,7 +62,6 @@ namespace DiscoverYemen.Data
                 }
             }
 
-            // Ensure Default User has a UserProfile
             var defaultUser = await userManager.FindByEmailAsync("user@discoveryemen.com");
             if (defaultUser != null && !context.UserProfiles.Any(p => p.UserId == defaultUser.Id))
             {
@@ -74,7 +69,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Governorates
             if (!context.Governorates.Any())
             {
                 var governorates = new List<Governorate>
@@ -90,7 +84,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Categories
             if (!context.Categories.Any())
             {
                 var categories = new List<Category>
@@ -105,7 +98,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Attractions
             if (!context.Attractions.Any())
             {
                 var sanaa = context.Governorates.First(g => g.Name == "صنعاء");
@@ -125,7 +117,6 @@ namespace DiscoverYemen.Data
                 context.Attractions.AddRange(attractions);
                 await context.SaveChangesAsync();
 
-                // Seed AttractionCategories
                 var historicalCat = context.Categories.First(c => c.Name == "تاريخي");
                 var naturalCat = context.Categories.First(c => c.Name == "طبيعي");
                 var culturalCat = context.Categories.First(c => c.Name == "ثقافي");
@@ -146,7 +137,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Hotels
             if (!context.Hotels.Any())
             {
                 var sanaa = context.Governorates.First(g => g.Name == "صنعاء");
@@ -163,7 +153,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Restaurants
             if (!context.Restaurants.Any())
             {
                 var sanaa = context.Governorates.First(g => g.Name == "صنعاء");
@@ -179,7 +168,6 @@ namespace DiscoverYemen.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed Events
             if (!context.Events.Any())
             {
                 var sanaa = context.Governorates.First(g => g.Name == "صنعاء");

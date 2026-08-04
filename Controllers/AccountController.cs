@@ -46,7 +46,6 @@ namespace DiscoverYemen.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "User");
 
-                    // Create UserProfile for the new user (1:1 relationship)
                     var profile = new UserProfile
                     {
                         UserId = user.Id

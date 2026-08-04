@@ -47,9 +47,16 @@ namespace DiscoverYemen.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _attractionService.CreateAttractionAsync(model);
-                TempData["Success"] = "تم إضافة المعلم بنجاح";
-                return RedirectToAction(nameof(Index));
+                var (attraction, error) = await _attractionService.CreateAttractionAsync(model);
+                if (error != null)
+                {
+                    ModelState.AddModelError("ImageFile", error);
+                }
+                else
+                {
+                    TempData["Success"] = "تم إضافة المعلم بنجاح";
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             ViewBag.Title = "إضافة معلم جديد";
@@ -90,9 +97,16 @@ namespace DiscoverYemen.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _attractionService.UpdateAttractionAsync(model);
-                TempData["Success"] = "تم تعديل المعلم بنجاح";
-                return RedirectToAction(nameof(Index));
+                var error = await _attractionService.UpdateAttractionAsync(model);
+                if (error != null)
+                {
+                    ModelState.AddModelError("ImageFile", error);
+                }
+                else
+                {
+                    TempData["Success"] = "تم تعديل المعلم بنجاح";
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             ViewBag.Title = "تعديل المعلم";
