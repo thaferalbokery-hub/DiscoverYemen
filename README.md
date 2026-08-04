@@ -19,8 +19,8 @@
 
 ## التقنيات المستخدمة
 
-- .NET 8 / ASP.NET Core MVC
-- Entity Framework Core 8
+- .NET 9 / ASP.NET Core MVC
+- Entity Framework Core 9
 - ASP.NET Core Identity
 - SQLite
 - Bootstrap 5 RTL
@@ -35,7 +35,7 @@ DiscoverYemen/
 ├── Controllers/         → وحدات التحكم العامة
 ├── Data/                → DbContext وبذر البيانات
 ├── Migrations/          → ترحيلات EF Core
-├── Models/              → نماذج البيانات (12 نموذج)
+├── Models/              → نماذج البيانات (13 نموذج)
 ├── Services/            → طبقة الخدمات (AttractionService, BookingService, ReportService)
 ├── ViewModels/          → نماذج العرض
 ├── Views/               → واجهات Razor
@@ -47,7 +47,7 @@ DiscoverYemen/
 
 ## قاعدة البيانات
 
-- **12 نموذج**: ApplicationUser, UserProfile, Governorate, Attraction, Category, AttractionCategory, Hotel, Restaurant, Event, Favorite, Review, Booking, BookingItem
+- **13 نموذج**: ApplicationUser, UserProfile, Governorate, Attraction, Category, AttractionCategory, Hotel, Restaurant, Event, Favorite, Review, Booking, BookingItem
 - **العلاقات**:
   - 1:1 — ApplicationUser → UserProfile
   - 1:N — Governorate → Attractions, Hotels, Restaurants, Events
